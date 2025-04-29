@@ -11,17 +11,13 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    public $connection = 'tenant';
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected   $guarded = [ ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +37,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function hasPermission($section_name)
+    {
+        if (!isset($this->permissions)) {
+            $sections_id = Permission::where('role_id', '=', $this->role_id)->where('allow', true)->pluck('section_id')->toArray();
+            $this->permissions = Section::whereIn('id', $sections_id)->pluck('name')->toArray();
+        }
+
+        return in_array($section_name, $this->permissions);
+    }
 }
