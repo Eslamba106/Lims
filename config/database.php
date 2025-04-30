@@ -32,7 +32,10 @@ return [
     | choice installed on your machine before you begin development.
     |
     */
-
+// DB_DATABASE=u189118481_tenancy
+// DB_USERNAME=u189118481_eslambadawy256
+// DB_PASSWORD=M1e0s6s9i9#  
+// https://auth-db1804.hstgr.io/index.php
     'connections' => [
 
         'sqlite' => [
@@ -46,11 +49,11 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'tenancy'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', 'u189118481_tenancy'),
+            'username' => env('DB_USERNAME',  'forge'),
+            'password' => env('DB_PASSWORD',  ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -65,9 +68,9 @@ return [
         'tenant' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '3306'),
-            'database' => 'tenancy',
+            'database' =>  env('DB_DATABASE', 'u189118481_tenancy'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
