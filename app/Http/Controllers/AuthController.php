@@ -17,23 +17,18 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            Config::set('database.default', 'mysql');
-            DB::purge('mysql');
-            DB::reconnect('mysql');
-            DB::setDefaultConnection('mysql');
-               
             $request->validate([
                 'tenant_id' => 'required',
                 'domain'     => 'required',
                 'user_name'  => 'required',
                 'password'   => 'required',
             ]);
-            
+           
             $tenant = (new Tenant()) 
                 ->where('tenant_id', $request->tenant_id)
                 ->where('domain', $request->domain)
                 ->first();     
-                
+
             if (! $tenant) {
                 return redirect()->back()->with('error', __('login.tenant_not_found'));
             }
@@ -43,19 +38,15 @@ class AuthController extends Controller
                 return redirect()->back()->with('error', __('login.database_not_found'));
             }
  
-            $db = $tenant->database_options['dbname'] ?? 'lims_' . $tenant->id;
-            Config::set('database.connections.tenant.database', $db);
-            DB::purge('tenant');  
-            DB::reconnect('tenant');  
-            DB::setDefaultConnection('tenant');
-           
-            $user = (new User()) 
+        
+            $user = (new User())->setConnection('mysql') 
                 ->where('user_name', $request['user_name'])
                 ->first();        
 
             if ($user && Hash::check($request['password'], $user->password)) { 
                 auth()->login($user, true);  
                 return redirect()->away('http://' . $tenant->tenant_id . '.' . $request->getHost().'/'.env('APP_NAME').'/dashboard');
+
             } else {
                 return redirect()->back()->with('error', __('login.user_not_found'));
             }
@@ -69,15 +60,12 @@ class AuthController extends Controller
     {
         Auth::logout();
         session()->invalidate();
-        session()->regenerateToken(); 
-        Config::set('database.connections.mysql');
-        DB::purge('mysql');
-        // DB::reconnect('mysql');
-        DB::setDefaultConnection('mysql'); 
-        return redirect()->to( env('APP_URL'));
+        session()->regenerateToken();
+        return redirect()->route('login-page');
     }
     public function admin_login(Request $request)
-    { 
+    {
+        // dd($request['user_name']);
         if (isset($request['user_name']) && Auth::guard('admins')->attempt(['user_name' => $request->input('user_name'), 'password' => $request->input('password')])) {
            
             return redirect()->route('admin.dashboard');
