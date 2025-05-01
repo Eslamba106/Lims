@@ -4,6 +4,7 @@
             border-radius: 
         }
     </style> --}}
+    
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <div class="navbar-header">
             <!-- This is for the sidebar toggle which is visible on mobile only -->
@@ -26,6 +27,7 @@
                 <!-- Logo text -->
                 <span class="logo-text" style="color: gray">
                     <!-- dark Logo text -->
+                    {{-- {{ dd(auth()->check()) }} --}}
                     {{ auth()->user()->name }}
                     {{-- <img src="../../assets/images/logo-text.png" alt="homepage" class="dark-logo" /> --}}
                     <!-- Light Logo text -->

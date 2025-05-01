@@ -20,13 +20,14 @@ use App\Http\Controllers\first_part\TestMethodController;
 
 
 Route::get('/', function () {
-    return view('auth.login-page');
+    return view('first_part.auth.login-page');
 })->name('login-page');
 
 // Route::get('/', [AuthController::class, 'loginPage'])->name('login-page');
 // // Translation
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login_tenancy', [AuthController::class, 'login_tenancy'])->name('login_tenancy');
 Route::get('logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 Route::get('/dashboard', function () {
     return view('dashboard.index');

@@ -19,42 +19,90 @@ class AuthController extends Controller
         try {
             $request->validate([
                 'tenant_id' => 'required',
-                'domain'     => 'required',
-                'user_name'  => 'required',
-                'password'   => 'required',
+                'domain' => 'required',
+                // 'user_name' => 'required',
+                // 'password' => 'required',
             ]);
-           
-            $tenant = (new Tenant()) 
+    
+            $tenant = (new Tenant())
                 ->where('tenant_id', $request->tenant_id)
                 ->where('domain', $request->domain)
-                ->first();     
-
-            if (! $tenant) {
+                ->first();
+    
+            if (!$tenant) {
                 return redirect()->back()->with('error', __('login.tenant_not_found'));
-            }
-
-            $dbOptions = json_decode($tenant->database_options, true);   
-            if (! isset($dbOptions['dbname'])) {
-                return redirect()->back()->with('error', __('login.database_not_found'));
-            }
- 
-        
-            $user = (new User())->setConnection('mysql') 
-                ->where('user_name', $request['user_name'])
-                ->first();        
-
-            if ($user && Hash::check($request['password'], $user->password)) { 
-                auth()->login($user, true);  
-                return redirect()->away('http://' . $tenant->tenant_id . '.' . $request->getHost().'/'.env('APP_NAME').'/dashboard');
-
-            } else {
-                return redirect()->back()->with('error', __('login.user_not_found'));
-            }
-
+            } 
+            return redirect()->away('http://' . $tenant->tenant_id . '.' . $request->getHost().'/'.env('APP_NAME').'/');
         } catch (\Throwable $th) {
             return redirect()->back()->with("error", $th->getMessage());
         }
     }
+    public function login_tenancy(Request $request)
+    {
+        try {
+            $request->validate([
+                 
+                'user_name' => 'required',
+                'password' => 'required',
+            ]);
+    
+             $user = (new User())  
+                ->where('user_name', $request['user_name'])
+                ->first();        
+                 
+            if ($user && Hash::check($request['password'], $user->password)) { 
+                auth()->login($user, true);  
+                return to_route('dashboard') ;
+
+            } else {
+                return redirect()->back()->with('error', __('login.user_not_found'));
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with("error", $th->getMessage());
+        }
+    }
+    // public function login(Request $request)
+    // {
+    //     try {
+    //         $request->validate([
+    //             'tenant_id' => 'required',
+    //             'domain'     => 'required',
+    //             'user_name'  => 'required',
+    //             'password'   => 'required',
+    //         ]);
+           
+    //         $tenant = (new Tenant()) 
+    //             ->where('tenant_id', $request->tenant_id)
+    //             ->where('domain', $request->domain)
+    //             ->first();     
+
+    //         if (! $tenant) {
+    //             return redirect()->back()->with('error', __('login.tenant_not_found'));
+    //         }
+
+    //         $dbOptions = json_decode($tenant->database_options, true);   
+    //         if (! isset($dbOptions['dbname'])) {
+    //             return redirect()->back()->with('error', __('login.database_not_found'));
+    //         }
+    //         // config(['session.domain' => '.'.$request->getHost()]);
+    //         $mainDomain ='http://' . $tenant->tenant_id . '.' . $request->getHost().'/'.env('APP_NAME'); 
+    //         $user = (new User())->setConnection('mysql') 
+    //             ->where('user_name', $request['user_name'])
+    //             ->first();        
+                
+    //             Config::set('domain', $mainDomain);
+    //         if ($user && Hash::check($request['password'], $user->password)) { 
+    //             auth()->login($user, true);  
+    //             return redirect()->away('http://' . $tenant->tenant_id . '.' . $request->getHost().'/'.env('APP_NAME').'/dashboard');
+
+    //         } else {
+    //             return redirect()->back()->with('error', __('login.user_not_found'));
+    //         }
+
+    //     } catch (\Throwable $th) {
+    //         return redirect()->back()->with("error", $th->getMessage());
+    //     }
+    // }
   
     public function logout()
     {

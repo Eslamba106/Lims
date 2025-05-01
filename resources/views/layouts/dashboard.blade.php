@@ -15,18 +15,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <link rel="stylesheet" href="{{ asset('assets/libs/select2/dist/css/select2.min.css') }}"> --}}
-    <link rel="stylesheet" href="{{ asset(main_path().'select2-4.0.3/css/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset(main_path() . 'select2-4.0.3/css/select2.css') }}">
 
-    <link href="{{ asset(main_path().'assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
-    <link href="{{ asset(main_path().'assets/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
-    <link href="{{ asset(main_path().'assets/libs/morris.js/morris.css') }}" rel="stylesheet">
+    <link href="{{ asset(main_path() . 'assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
+    <link href="{{ asset(main_path() . 'assets/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
+    <link href="{{ asset(main_path() . 'assets/libs/morris.js/morris.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    
-    <link href="{{ asset(main_path().'dist/css/style.min.css') }}" rel="stylesheet">
 
-    
+    <link href="{{ asset(main_path() . 'dist/css/style.min.css') }}" rel="stylesheet">
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -50,7 +50,6 @@
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <div id="main-wrapper">
-
         @include('layouts.header')
         @include('layouts.sidebar')
         <div class="page-wrapper">
@@ -94,35 +93,36 @@
 
 
 
-    <script src="{{ asset(main_path().'assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="{{ asset(main_path().'assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ asset(main_path().'assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- apps -->
-    <script src="{{ asset(main_path().'dist/js/app.min.js') }}"></script>
-    <script src="{{ asset(main_path().'dist/js/app.init.js') }}"></script>
-    <script src="{{ asset(main_path().'dist/js/app-style-switcher.js') }}"></script>
+    <script src="{{ asset(main_path() . 'dist/js/app.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'dist/js/app.init.js') }}"></script>
+    <script src="{{ asset(main_path() . 'dist/js/app-style-switcher.js') }}"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="{{ asset(main_path().'assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
-    <script src="{{ asset(main_path().'assets/extra-libs/sparkline/sparkline.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/extra-libs/sparkline/sparkline.js') }}"></script>
     <!--Wave Effects -->
-    <script src="{{ asset(main_path().'dist/js/waves.js') }}"></script>
+    <script src="{{ asset(main_path() . 'dist/js/waves.js') }}"></script>
     <!--Menu sidebar -->
-    <script src="{{ asset(main_path().'dist/js/sidebarmenu.js') }}"></script>
+    <script src="{{ asset(main_path() . 'dist/js/sidebarmenu.js') }}"></script>
     <!--Custom JavaScript -->
-    <script src="{{ asset(main_path().'dist/js/custom.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'dist/js/custom.min.js') }}"></script>
     <!--This page JavaScript -->
     <!--chartis chart-->
-    <script src="{{ asset(main_path().'assets/libs/chartist/dist/chartist.min.js') }}"></script>
-    <script src="{{ asset(main_path().'assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/libs/chartist/dist/chartist.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}">
+    </script>
     <!--c3 charts -->
-    <script src="{{ asset(main_path().'assets/extra-libs/c3/d3.min.js') }}"></script>
-    <script src="{{ asset(main_path().'assets/extra-libs/c3/c3.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/extra-libs/c3/d3.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/extra-libs/c3/c3.min.js') }}"></script>
     <!--chartjs -->
-    <script src="{{ asset(main_path().'assets/libs/raphael/raphael.min.js') }}"></script>
-    <script src="{{ asset(main_path().'assets/libs/morris.js/morris.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/libs/raphael/raphael.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'assets/libs/morris.js/morris.min.js') }}"></script>
     {{-- <script src="{{ asset('assets/libs/select2/dist/js/select2.min.js') }}"></script> --}}
-    <script src="{{ asset(main_path().'select2-4.0.3/js/select2.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'select2-4.0.3/js/select2.min.js') }}"></script>
 
     <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script>
 
@@ -139,7 +139,7 @@
             });
         });
     </script>
-    
+
     @yield('js')
 </body>
 
