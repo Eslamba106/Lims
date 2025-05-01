@@ -23,7 +23,7 @@
     <input type="password" class="form-control form-control-lg"  name="password" id="password" placeholder="************" required>
 
 </div> --}}
-</div>
+{{-- </div> --}}
 @php
     $host = request()->getHost();
 @endphp

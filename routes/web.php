@@ -22,6 +22,8 @@ use App\Http\Controllers\first_part\TestMethodController;
 Route::get('/', function () {
     return view('auth.login-page');
 })->name('login-page');
+
+
 Route::get('/login', function () {
     return view('first_part.auth.login-page');
 })->name('web.login-page');
@@ -47,6 +49,19 @@ Route::group(['prefix' => 'test_method'], function () {
 });
 
 
+// Test Method Managment
+Route::group(['prefix' => 'test_method'], function () {
+
+    Route::get('/', [TestMethodController::class, 'index'])->name('admin.test_method');
+    Route::get('/create', [TestMethodController::class , 'create'])->name('admin.test_method.create');
+    Route::post('/create', [TestMethodController::class , 'store'])->name('admin.test_method.store');
+    Route::get('/edit/{id}' , [TestMethodController::class , 'edit'])->name('admin.test_method.edit');
+    Route::patch('/update/{id}' , [TestMethodController::class , 'update'])->name('admin.test_method.update');
+    Route::get('/delete/{id}', [TestMethodController::class ,'destroy'])->name('admin.test_method.delete'); 
+
+});
+
+
 // User Managment
 Route::group(['prefix' => 'user_management'], function () {
 
@@ -55,9 +70,7 @@ Route::group(['prefix' => 'user_management'], function () {
     Route::post('/create', [UserManagmentController::class , 'store'])->name('user_managment.store');
     Route::get('/edit/{id}' , [UserManagmentController::class , 'edit'])->name('user_managment.edit');
     Route::patch('/update/{id}' , [UserManagmentController::class , 'update'])->name('user_managment.update');
-    Route::get('/delete/{id}', [UserManagmentController::class ,'destroy'])->name('user_managment.delete');
-
-    Route::get('/signature', [UserManagmentController::class, 'signature'])->name('user_management.signature');
+    Route::get('/delete/{id}', [UserManagmentController::class ,'destroy'])->name('user_managment.delete'); 
 
 });
 

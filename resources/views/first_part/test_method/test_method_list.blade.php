@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('title')
-<?php $lang = Session::get('locale'); ?>
+    <?php $lang = Session::get('locale'); ?>
 
     {{ __('roles.test_method_management') }}
 @endsection
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <form action="" method="get">
 
@@ -44,21 +44,21 @@
                                 </select>
                             </div>
                         @endcan
-                    
-                        
+
+
                         <button type="submit" name="bulk_action_btn" value="update_status"
                             class="btn btn-primary mt-3 mr-2">
                             <i class="la la-refresh"></i> {{ __('dashboard.update') }}
                         </button>
-                        @can('delete_test_method') 
-                        <button type="submit" name="bulk_action_btn" value="delete"
-                            class="btn btn-danger delete_confirm mt-3 mr-2"> <i class="la la-trash"></i>
-                            {{ __('dashboard.delete') }}</button>
-                            @endcan
+                        @can('delete_test_method')
+                            <button type="submit" name="bulk_action_btn" value="delete"
+                                class="btn btn-danger delete_confirm mt-3 mr-2"> <i class="la la-trash"></i>
+                                {{ __('dashboard.delete') }}</button>
+                        @endcan
                         @can('create_test_method')
-                        <a href="{{ route('admin.test_method.create') }}" class="btn btn-secondary mt-3 mr-2">
-                            <i class="la la-refresh"></i> {{ __('dashboard.create') }}
-                        </a> 
+                            <a href="{{ route('admin.test_method.create') }}" class="btn btn-secondary mt-3 mr-2">
+                                <i class="la la-refresh"></i> {{ __('dashboard.create') }}
+                            </a>
                         @endcan
                     </div>
                 </div>
@@ -69,9 +69,10 @@
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
                             <th class="text-center" scope="col">{{ __('roles.name') }}</th>
-                            <th class="text-center" scope="col">{{ __('roles.email') }}</th>
-                            <th class="text-center" scope="col">@lang('login.phone')</th>
-                            <th class="text-center" scope="col">@lang('general.nationality')</th>
+                            <th class="text-center" scope="col">{{ __('test_method.component') }}</th>
+                            <th class="text-center" scope="col">@lang('test_method.unit')</th>
+                            <th class="text-center" scope="col">@lang('test_method.lower_range')</th>
+                            <th class="text-center" scope="col">@lang('test_method.upper_range')</th>
                             <th class="text-center" scope="col">@lang('roles.status')</th>
                             <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
                         </tr>
@@ -79,33 +80,65 @@
                     <tbody>
                         @forelse ($test_methods as $test_method)
                             <tr>
-                                <th scope="row">
+                                {{-- <th scope="row">
                                     <label>
                                         <input class="check_bulk_item" name="bulk_ids[]" type="checkbox"
                                             value="{{ $test_method->id }}" />
                                         <span class="text-muted">#{{ $test_method->id }}</span>
                                     </label>
                                 </th>
-                                <td class="text-center">{{ $test_method->name }}</td>
-                                <td class="text-center">{{ $test_method->email   }}</td>
-                                <td class="text-center">{{ $test_method->phone }} </td>
-                                <td class="text-center">{{ $test_method->country->nationality }} </td> 
-                                <td class="text-center"> <span
+                                <td class="text-center">{{ $test_method->name }}</td> --}}
+                                @php
+                                $items = $test_method->test_method_items;
+                                $rowspan = count($items);
+                            @endphp
+            
+                            @foreach ($items as $index => $item)
+                                <tr>
+                                    @if ($index == 0)
+                                        <td rowspan="{{ $rowspan }}" > 
+                                            <input class="check_bulk_item" name="bulk_ids[]" type="checkbox" value="{{ $test_method->id }}" />
+                                        </td>
+                                        <td rowspan="{{ $rowspan }}" class="text-center">
+                                            {{ $test_method->name }}<br>
+                                            <small>{{ $test_method->standard ?? '' }}</small>
+                                        </td>
+                                    @endif
+            
+                                    <td class="text-center">{{ $item->name }}</td>
+                                    <td class="text-center">{{ $item->unit }}</td>
+                                    <td class="text-center">{{ $item->lower_range }}</td>
+                                    <td class="text-center">{{ $item->upper_range }}</td>
+            
+                                    @if ($index == 0)
+                                    <td class="text-center" rowspan="{{ $rowspan }}"> <span
                                         class="badge badge-pill {{ $test_method->status == 'active' ? 'badge-success' : 'badge-danger' }}">{{ $test_method->status }}</span>
                                 </td>
-                               
-                                <td class="text-center">
-                                    @can('delete_test_method') 
-                                        <a href="{{ route('test_method.delete', $test_method->id) }}"
+
+                                <td class="text-center" rowspan="{{ $rowspan }}">
+                                    @can('delete_test_method')
+                                        <a href="{{ route('admin.test_method.delete', $test_method->id) }}"
                                             class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
                                                 class="fa fa-trash"></i></a>
                                     @endcan
-                                    @can('edit_test_method') 
-                                        <a href="{{ route('test_method.edit', $test_method->id) }}"
+                                    @can('edit_test_method')
+                                        <a href="{{ route('admin.test_method.edit', $test_method->id) }}"
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan
                                 </td>
+                                    {{-- <td rowspan="{{ $rowspan }}">
+                                        <input class="check_bulk_item" name="bulk_ids[]" type="checkbox" value="{{ $test_method->id }}" />
+                                    </td>
+                                    <td rowspan="{{ $rowspan }}" class="text-center">
+                                        {{ $test_method->name }}<br>
+                                        <small>{{ $test_method->standard ?? '' }}</small>
+                                    </td> --}}
+                                @endif
+                                </tr>
+                            @endforeach
+            
+                               
                             </tr>
                         @empty
                         @endforelse

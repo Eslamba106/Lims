@@ -35,14 +35,14 @@ class SectionSeeder extends Seeder
         Section::updateOrCreate(['id' => 15], ['name' => 'create_user', 'section_group_id' => 9, 'caption' => 'create_user']);
         
     
-        // Tenants Management 16 - 15
-        Section::updateOrCreate(['id' => 16], ['name' => 'tenant_management', 'caption' => 'tenant_management']);
-        Section::updateOrCreate(['id' => 17], ['name' => 'all_tenants', 'section_group_id' => 16, 'caption' => 'show_all_tenants']);
-        Section::updateOrCreate(['id' => 18], ['name' => 'change_tenants_role', 'section_group_id' => 16, 'caption' => 'change_tenants_role']);
-        Section::updateOrCreate(['id' => 19], ['name' => 'change_tenants_status', 'section_group_id' => 16, 'caption' => 'change_tenants_status']);
-        Section::updateOrCreate(['id' => 20], ['name' => 'delete_tenant', 'section_group_id' => 16, 'caption' => 'delete_tenant']);
-        Section::updateOrCreate(['id' => 21], ['name' => 'edit_tenant', 'section_group_id' => 16, 'caption' => 'edit_tenant']);
-        Section::updateOrCreate(['id' => 22], ['name' => 'create_tenant', 'section_group_id' => 16, 'caption' => 'create_tenant']);
+        // Test Method Management 16 - 15
+        Section::updateOrCreate(['id' => 16], ['name' => 'test_method_management', 'caption' => 'test_method_management']);
+        Section::updateOrCreate(['id' => 17], ['name' => 'all_test_methods', 'section_group_id' => 16, 'caption' => 'show_all_test_methods']);
+        Section::updateOrCreate(['id' => 18], ['name' => 'change_test_methods_role', 'section_group_id' => 16, 'caption' => 'change_test_methods_role']);
+        Section::updateOrCreate(['id' => 19], ['name' => 'change_test_methods_status', 'section_group_id' => 16, 'caption' => 'change_test_methods_status']);
+        Section::updateOrCreate(['id' => 20], ['name' => 'delete_test_method', 'section_group_id' => 16, 'caption' => 'delete_test_method']);
+        Section::updateOrCreate(['id' => 21], ['name' => 'edit_test_method', 'section_group_id' => 16, 'caption' => 'edit_test_method']);
+        Section::updateOrCreate(['id' => 22], ['name' => 'create_test_method', 'section_group_id' => 16, 'caption' => 'create_test_method']);
         
     
     }

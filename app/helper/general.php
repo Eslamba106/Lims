@@ -81,8 +81,7 @@ if (! function_exists('main_path')) {
 if (!function_exists('company_id')) {
     function company_id()
     { 
-        $lastCompany = Tenant::orderBy('id', 'desc')->first();
-
+        $lastCompany = Tenant::orderBy('id', 'desc')->first(); 
         if ($lastCompany && $lastCompany->tenant_id) { 
             return $lastCompany->tenant_id + 1;
         } 

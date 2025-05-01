@@ -104,5 +104,14 @@ return [
     'delete_tenant'                                           => "Delete Tenant",
     'edit_tenant'                                             => "Edit Tenant",
     'create_tenant'                                           => "Create Tenant",
+    
+    'basic_information'                                             => 'Basic Information',
+    'test_method_management'                                       => 'Test Method',
+    'all_test_methods'                                             => 'Test Methods List', 
+    'show_all_test_methods'                                        => "Show All Test Methods",
+    'change_test_methods_status'                                   => "Change Test Method Status",
+    'delete_test_method'                                           => "Delete Test Method",
+    'edit_test_method'                                             => "Edit Test Method",
+    'create_test_method'                                           => "Create Test Method",
 
 ];  

@@ -9,6 +9,27 @@
 
               
 
+                @can('test_method_management')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false">
+                            <i class="fa fa-flask"></i>
+
+                            <span class="hide-menu">{{ __('roles.test_method_management') }} </span>
+                        </a>
+                        @can('all_test_methods')
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.test_method') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ __('roles.all_test_methods') }}</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        @endcan
+                    </li>
+                @endcan
                 @can('user_management')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"

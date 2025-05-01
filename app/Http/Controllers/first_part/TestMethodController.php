@@ -4,6 +4,7 @@ namespace App\Http\Controllers\first_part;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\first_part\TestMethod;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -32,7 +33,54 @@ class TestMethodController extends Controller
             return back()->with('success', __('general.deleted_successfully'));
         }
 
-        $test_methods = TestMethod::orderBy("created_at","desc")->paginate(10);
+        $test_methods = TestMethod::select('id' , 'name' , 'status' , 'description')->with('test_method_items')->orderBy("created_at","desc")->paginate(10);
         return view("first_part.test_method.test_method_list", compact("test_methods"  ));
+    }
+    
+    public function create(){
+        $this->authorize('create_test_method'); 
+        return view("first_part.test_method.create"  );
+    }
+
+    public function store(Request $request){
+         
+        $this->authorize('create_test_method'); 
+        $request->validate([
+            'name' => 'required|string|max:255', 
+            'description' => 'nullable|string|max:1000',
+            'item_name' => 'required|array',
+            'item_name.*' => 'required|string|max:255',
+            'unit' => 'required|array',
+            'unit.*' => 'required|string|max:255',
+            'result_type' => 'required|array',
+            'result_type.*' => 'required|string|max:255',
+        ]);
+        
+        DB::beginTransaction();
+        try {
+            $test_method = TestMethod::create([
+                'name' => $request->name,
+                'description' => $request->description,
+               
+            ]);
+            foreach($request->item_name as $index => $test_method_item){
+                $test_method->test_method_items()->create([
+                    'name' => $test_method_item,
+                    'unit' =>  isset($request->unit[$index]) ? $request->unit[$index] : null,
+                    'result_type' =>  isset($request->result_type[$index]) ? $request->result_type[$index] : null,
+                    'precision' =>  isset($request->precision[$index]) ? $request->precision[$index] : null,
+                    'lower_range' =>  isset($request->lower_range[$index]) ? $request->lower_range[$index] : null,
+                    'upper_range' =>  isset($request->upper_range[$index]) ? $request->upper_range[$index] : null,
+                    'reportable' => isset($request->reportable[$index]) ? $request->reportable[$index] : null,
+                ]);
+            }
+            
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', __('general.something_went_wrong'));
+        }
+        
+        return redirect()->route('admin.test_method')->with('success', __('general.created_successfully'));
     }
 }

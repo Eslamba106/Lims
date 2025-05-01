@@ -9,6 +9,8 @@ class TestMethodItem extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $connection ='tenant';
+
     public function test_method(){
         return $this->belongsTo(TestMethod::class, 'test_method_id', 'id');
     }
