@@ -20,8 +20,11 @@ use App\Http\Controllers\first_part\TestMethodController;
 
 
 Route::get('/', function () {
-    return view('first_part.auth.login-page');
+    return view('auth.login-page');
 })->name('login-page');
+Route::get('/login', function () {
+    return view('first_part.auth.login-page');
+})->name('web.login-page');
 
 // Route::get('/', [AuthController::class, 'loginPage'])->name('login-page');
 // // Translation
