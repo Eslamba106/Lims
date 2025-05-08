@@ -38,7 +38,7 @@
             <div class="auth-box">
                 <div id="loginform">
                     <div class="logo">
-                        <span class="db"><img src="{{ asset(main_path().'assets/images/logo-icon.png') }}" alt="logo" /></span>
+                        <span class="db"><img width="50px" src="{{ asset(main_path().'assets/images/logo.png') }}" alt="logo" /></span>
                         <h5 class="font-medium m-b-20">{{ __('login.sign_in') }}</h5>
                     </div>
                     <!-- Form -->
