@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\part\PlantController;
+use App\Http\Controllers\part\GeneralController;
 use App\Http\Controllers\Admin\UserManagmentController;
 use App\Http\Controllers\first_part\TestMethodController;
 
@@ -58,6 +60,39 @@ Route::group(['prefix' => 'test_method'], function () {
     Route::get('/edit/{id}' , [TestMethodController::class , 'edit'])->name('admin.test_method.edit');
     Route::patch('/update/{id}' , [TestMethodController::class , 'update'])->name('admin.test_method.update');
     Route::get('/delete/{id}', [TestMethodController::class ,'destroy'])->name('admin.test_method.delete'); 
+
+});
+// Unit Managment
+Route::group(['prefix' => 'unit'], function () {
+
+    Route::get('/', [GeneralController::class, 'unit_index'])->name('admin.unit');
+    Route::get('/create', [GeneralController::class , 'unit_create'])->name('admin.unit.create');
+    Route::post('/create', [GeneralController::class , 'unit_store'])->name('admin.unit.store');
+    Route::get('/edit/{id}' , [GeneralController::class , 'unit_edit'])->name('admin.unit.edit');
+    Route::patch('/update/{id}' , [GeneralController::class , 'unit_update'])->name('admin.unit.update');
+    Route::get('/delete/{id}', [GeneralController::class ,'unit_destroy'])->name('admin.unit.delete'); 
+
+});
+// Result Type Managment
+Route::group(['prefix' => 'result_type'], function () {
+
+    Route::get('/result-type', [GeneralController::class, 'result_type_index'])->name('admin.result_type');
+    Route::get('/create', [GeneralController::class , 'result_type_create'])->name('admin.result_type.create');
+    Route::post('/create', [GeneralController::class , 'result_type_store'])->name('admin.result_type.store');
+    Route::get('/edit/{id}' , [GeneralController::class , 'result_type_edit'])->name('admin.result_type.edit');
+    Route::patch('/update/{id}' , [GeneralController::class , 'result_type_update'])->name('admin.result_type.update');
+    Route::get('/delete/{id}', [GeneralController::class ,'result_type_destroy'])->name('admin.result_type.delete'); 
+
+});
+// Plant Managment
+Route::group(['prefix' => 'plant'], function () {
+
+    Route::get('/', [PlantController::class, 'plant_index'])->name('admin.plant');
+    Route::get('/create', [PlantController::class , 'plant_create'])->name('admin.plant.create');
+    Route::post('/create', [PlantController::class , 'plant_store'])->name('admin.plant.store');
+    Route::get('/edit/{id}' , [PlantController::class , 'plant_edit'])->name('admin.plant.edit');
+    Route::patch('/update/{id}' , [PlantController::class , 'plant_update'])->name('admin.plant.update');
+    Route::get('/delete/{id}', [PlantController::class ,'plant_destroy'])->name('admin.plant.delete'); 
 
 });
 

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\first_part;
 
 use Carbon\Carbon;
+use App\Models\part\Unit;
 use Illuminate\Http\Request;
+use App\Models\part\ResultType;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\first_part\TestMethod;
@@ -39,7 +41,13 @@ class TestMethodController extends Controller
     
     public function create(){
         $this->authorize('create_test_method'); 
-        return view("first_part.test_method.create"  );
+        $units = Unit::select('id', 'name')->get();
+        $result_types = ResultType::select('id', 'name')->get();
+        $data = [
+            'units' => $units,
+            'result_types' => $result_types,
+        ];
+        return view("first_part.test_method.create"  ,$data);
     }
 
     public function store(Request $request){

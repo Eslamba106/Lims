@@ -25,6 +25,6 @@ return [
     'lower_range' => 'المدى الأدنى',
     'upper_range' => 'المدى الأعلى',
     'add_another_component' => 'إضافة مكوّن آخر',
-    'reportable' => 'قابل للتقرير',
+    'reportable' => 'للمختبر',
     'component' => 'المكوّن',
 ];

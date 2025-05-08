@@ -35,14 +35,36 @@ class SectionSeeder extends Seeder
         Section::updateOrCreate(['id' => 15], ['name' => 'create_user', 'section_group_id' => 9, 'caption' => 'create_user']);
         
     
-        // Test Method Management 16 - 15
+        // Test Method Management 16 - 22
         Section::updateOrCreate(['id' => 16], ['name' => 'test_method_management', 'caption' => 'test_method_management']);
         Section::updateOrCreate(['id' => 17], ['name' => 'all_test_methods', 'section_group_id' => 16, 'caption' => 'show_all_test_methods']);
-        Section::updateOrCreate(['id' => 18], ['name' => 'change_test_methods_role', 'section_group_id' => 16, 'caption' => 'change_test_methods_role']);
-        Section::updateOrCreate(['id' => 19], ['name' => 'change_test_methods_status', 'section_group_id' => 16, 'caption' => 'change_test_methods_status']);
-        Section::updateOrCreate(['id' => 20], ['name' => 'delete_test_method', 'section_group_id' => 16, 'caption' => 'delete_test_method']);
-        Section::updateOrCreate(['id' => 21], ['name' => 'edit_test_method', 'section_group_id' => 16, 'caption' => 'edit_test_method']);
-        Section::updateOrCreate(['id' => 22], ['name' => 'create_test_method', 'section_group_id' => 16, 'caption' => 'create_test_method']);
+        Section::updateOrCreate(['id' => 18], ['name' => 'create_test_method', 'section_group_id' => 16, 'caption' => 'create_test_method']);
+        Section::updateOrCreate(['id' => 19], ['name' => 'change_test_methods_role', 'section_group_id' => 16, 'caption' => 'change_test_methods_role']);
+        Section::updateOrCreate(['id' => 20], ['name' => 'change_test_methods_status', 'section_group_id' => 16, 'caption' => 'change_test_methods_status']);
+        Section::updateOrCreate(['id' => 21], ['name' => 'delete_test_method', 'section_group_id' => 16, 'caption' => 'delete_test_method']);
+        Section::updateOrCreate(['id' => 22], ['name' => 'edit_test_method', 'section_group_id' => 16, 'caption' => 'edit_test_method']);
+        
+    
+    
+        // Test Method Management 23 - 29
+        Section::updateOrCreate(['id' => 23], ['name' => 'unit_management', 'caption' => 'unit_management']);
+        Section::updateOrCreate(['id' => 24], ['name' => 'change_units_role', 'section_group_id' => 23, 'caption' => 'change_units_role']);
+        Section::updateOrCreate(['id' => 25], ['name' => 'change_units_status', 'section_group_id' => 23, 'caption' => 'change_units_status']);
+        Section::updateOrCreate(['id' => 26], ['name' => 'delete_unit', 'section_group_id' => 23, 'caption' => 'delete_unit']);
+        Section::updateOrCreate(['id' => 27], ['name' => 'edit_unit', 'section_group_id' => 23, 'caption' => 'edit_unit']);
+        Section::updateOrCreate(['id' => 28], ['name' => 'create_unit', 'section_group_id' => 23, 'caption' => 'create_unit']);
+        Section::updateOrCreate(['id' => 29], ['name' => 'all_units', 'section_group_id' => 23, 'caption' => 'show_all_units']);
+        
+    
+    
+        // Test Method Management 30- 36
+        Section::updateOrCreate(['id' => 30], ['name' => 'result_type_management', 'caption' => 'result_type_management']);
+        Section::updateOrCreate(['id' => 31], ['name' => 'change_result_types_status', 'section_group_id' => 30, 'caption' => 'change_result_types_status']);
+        Section::updateOrCreate(['id' => 32], ['name' => 'delete_result_type', 'section_group_id' => 30, 'caption' => 'delete_result_type']);
+        Section::updateOrCreate(['id' => 33], ['name' => 'edit_result_type', 'section_group_id' => 30, 'caption' => 'edit_result_type']);
+        Section::updateOrCreate(['id' => 34], ['name' => 'create_result_type', 'section_group_id' => 30, 'caption' => 'create_result_type']);
+        Section::updateOrCreate(['id' => 35], ['name' => 'change_result_types_role', 'section_group_id' => 30, 'caption' => 'change_result_types_role']);
+        Section::updateOrCreate(['id' => 36], ['name' => 'all_result_types', 'section_group_id' => 30, 'caption' => 'show_all_result_types']);
         
     
     }

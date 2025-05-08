@@ -25,6 +25,8 @@ return [
     'lower_range' => "Lower Range",
     'upper_range' => "Upper Range",
     'add_another_component' => "Add Another Component",
-    'reportable' => "Reportable",
+    'reportable' => "For Lab",
     'component'             => 'Component',
+    'added'             => 'Added',
+    'not_added'             => 'Not Added',
 ];

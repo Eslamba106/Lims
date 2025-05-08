@@ -39,8 +39,8 @@
                             <div class="remv_control mr-2">
                                 <select name="status" class="mr-3 mt-3 form-control ">
                                     <option value="">{{ __('dashboard.set_status') }}</option>
-                                    <option value="1">{{ __('dashboard.active') }}</option>
-                                    <option value="2">{{ __('dashboard.disactive') }}</option>
+                                    <option value="1">{{ __('test_method.added') }}</option>
+                                    <option value="2">{{ __('test_method.not_added') }}</option>
                                 </select>
                             </div>
                         @endcan
@@ -79,68 +79,52 @@
                     </thead>
                     <tbody>
                         @forelse ($test_methods as $test_method)
+                        @php
+                            $itemCount = $test_method->test_method_items->count();
+                        @endphp
+                    
+                        @foreach ($test_method->test_method_items as $index => $item)
                             <tr>
-                                {{-- <th scope="row">
-                                    <label>
-                                        <input class="check_bulk_item" name="bulk_ids[]" type="checkbox"
-                                            value="{{ $test_method->id }}" />
-                                        <span class="text-muted">#{{ $test_method->id }}</span>
-                                    </label>
-                                </th>
-                                <td class="text-center">{{ $test_method->name }}</td> --}}
-                                @php
-                                $items = $test_method->test_method_items;
-                                $rowspan = count($items);
-                            @endphp
-            
-                            @foreach ($items as $index => $item)
-                                <tr>
-                                    @if ($index == 0)
-                                        <td rowspan="{{ $rowspan }}" > 
-                                            <input class="check_bulk_item" name="bulk_ids[]" type="checkbox" value="{{ $test_method->id }}" />
-                                        </td>
-                                        <td rowspan="{{ $rowspan }}" class="text-center">
-                                            {{ $test_method->name }}<br>
-                                            <small>{{ $test_method->standard ?? '' }}</small>
-                                        </td>
-                                    @endif
-            
-                                    <td class="text-center">{{ $item->name }}</td>
-                                    <td class="text-center">{{ $item->unit }}</td>
-                                    <td class="text-center">{{ $item->lower_range }}</td>
-                                    <td class="text-center">{{ $item->upper_range }}</td>
-            
-                                    @if ($index == 0)
-                                    <td class="text-center" rowspan="{{ $rowspan }}"> <span
-                                        class="badge badge-pill {{ $test_method->status == 'active' ? 'badge-success' : 'badge-danger' }}">{{ $test_method->status }}</span>
-                                </td>
-
-                                <td class="text-center" rowspan="{{ $rowspan }}">
-                                    @can('delete_test_method')
-                                        <a href="{{ route('admin.test_method.delete', $test_method->id) }}"
-                                            class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
-                                                class="fa fa-trash"></i></a>
-                                    @endcan
-                                    @can('edit_test_method')
-                                        <a href="{{ route('admin.test_method.edit', $test_method->id) }}"
-                                            class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
-                                                class="mdi mdi-pencil"></i> </a>
-                                    @endcan
-                                </td>
-                                    {{-- <td rowspan="{{ $rowspan }}">
-                                        <input class="check_bulk_item" name="bulk_ids[]" type="checkbox" value="{{ $test_method->id }}" />
+                                {{-- أول عمود (checkbox + ID) --}}
+                                @if ($index === 0)
+                                    <th scope="row" rowspan="{{ $itemCount }}">
+                                        <label>
+                                            <input class="check_bulk_item" name="bulk_ids[]" type="checkbox"
+                                                value="{{ $test_method->id }}" />
+                                            <span class="text-muted">#{{ $loop->index + 1 }}</span>
+                                        </label>
+                                    </th>
+                                    <td class="text-center" rowspan="{{ $itemCount }}">{{ $test_method->name }}</td>
+                                @endif 
+                                <td class="text-center">{{ $item->name }}</td>
+                                <td class="text-center">{{ $item->unit }}</td>
+                                <td class="text-center">{{ $item->lower_range }}</td>
+                                <td class="text-center">{{ $item->upper_range }}</td> 
+                                @if ($index === 0)
+                                    <td class="text-center" rowspan="{{ $itemCount }}">
+                                        <span class="badge badge-pill {{ $test_method->status == 'added' ? 'badge-success' : 'badge-secondary' }}">
+                                            {{ __('test_method.'.$test_method->status) }}
+                                        </span>
                                     </td>
-                                    <td rowspan="{{ $rowspan }}" class="text-center">
-                                        {{ $test_method->name }}<br>
-                                        <small>{{ $test_method->standard ?? '' }}</small>
-                                    </td> --}}
+                                    <td class="text-center" rowspan="{{ $itemCount }}">
+                                        @can('delete_test_method')
+                                            <a href="{{ route('admin.test_method.delete', $test_method->id) }}"
+                                                class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i class="fa fa-trash"></i></a>
+                                        @endcan
+                                        @can('edit_test_method')
+                                            <a href="{{ route('admin.test_method.edit', $test_method->id) }}"
+                                                class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i class="mdi mdi-pencil"></i> </a>
+                                        @endcan
+                                    </td>
                                 @endif
-                                </tr>
-                            @endforeach
-            
-                               
                             </tr>
-                        @empty
+                        @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">@lang('No data found')</td>
+                        </tr>
+                     
+                    
                         @endforelse
 
 

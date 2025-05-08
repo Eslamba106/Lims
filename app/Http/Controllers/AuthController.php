@@ -31,8 +31,8 @@ class AuthController extends Controller
     
             if (!$tenant) {
                 return redirect()->back()->with('error', __('login.tenant_not_found'));
-            } 
-            return redirect()->away('http://' . $tenant->tenant_id . '.' . $request->getHost().'/'.env('APP_NAME').'/login');
+            }  
+            return redirect()->away('http://' . $tenant->tenant_id . '.' . $request->getHost().'/'.config('app.name').'/login');
         } catch (\Throwable $th) {
             return redirect()->back()->with("error", $th->getMessage());
         }

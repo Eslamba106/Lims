@@ -114,4 +114,20 @@ return [
     'edit_test_method'                                             => "Edit Test Method",
     'create_test_method'                                           => "Create Test Method",
 
+    'unit_management'                                       => 'Unit',
+    'all_units'                                             => 'Units List', 
+    'show_all_units'                                        => "Show All Units",
+    'change_units_status'                                   => "Change Unit Status",
+    'delete_unit'                                           => "Delete Unit",
+    'edit_unit'                                             => "Edit Unit",
+    'create_unit'                                           => "Create Unit",
+
+    'result_type_management'                                       => 'Result Type',
+    'all_result_types'                                             => 'Result Types List', 
+    'show_all_result_types'                                        => "Show All Result Types",
+    'change_result_types_status'                                   => "Change Result Type Status",
+    'delete_result_type'                                           => "Delete Result Type",
+    'edit_result_type'                                             => "Edit Result Type",
+    'create_result_type'                                           => "Create Result Type",
+
 ];  
