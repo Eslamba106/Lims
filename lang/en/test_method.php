@@ -29,4 +29,5 @@ return [
     'component'             => 'Component',
     'added'             => 'Added',
     'not_added'             => 'Not Added',
+    'test_method' => 'Test Method',
 ];

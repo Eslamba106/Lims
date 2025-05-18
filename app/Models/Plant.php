@@ -10,16 +10,18 @@ class Plant extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function subplants()
+    public function sub_plants()
     {
-        return $this->hasMany(Plant::class, 'main_plant');
+        return $this->hasMany(Plant::class, 'plant_id');
     }
     public function mainPlant()
     {
-        return $this->belongsTo(Plant::class, 'main_plant');
+        return $this->belongsTo(Plant::class, 'plant_id');
     }
     public function samplePlants()
     {
-        return $this->hasMany(SamplePlant::class, 'main_plant');
+        return $this->hasMany(SamplePlant::class, 'plant_id');
     }
+   
+
 }

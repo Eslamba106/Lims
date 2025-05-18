@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\part\PlantController;
+use App\Http\Controllers\part\SampleController;
 use App\Http\Controllers\part\GeneralController;
 use App\Http\Controllers\Admin\UserManagmentController;
 use App\Http\Controllers\first_part\TestMethodController;
@@ -62,6 +63,36 @@ Route::group(['prefix' => 'test_method'], function () {
     Route::get('/delete/{id}', [TestMethodController::class ,'destroy'])->name('admin.test_method.delete'); 
 
 });
+
+// Sample Managment
+Route::group(['prefix' => 'sample'], function () {
+
+    Route::get('/', [SampleController::class, 'index'])->name('admin.sample');
+    Route::get('/create', [SampleController::class , 'create'])->name('admin.sample.create');
+    Route::post('/create', [SampleController::class , 'store'])->name('admin.sample.store');
+    Route::get('/edit/{id}' , [SampleController::class , 'edit'])->name('admin.sample.edit');
+    Route::patch('/update/{id}' , [SampleController::class , 'update'])->name('admin.sample.update');
+    Route::get('/delete/{id}', [SampleController::class ,'destroy'])->name('admin.sample.delete'); 
+    Route::get('/get_sub_from_plant/{id}', [SampleController::class, 'get_sub_from_plant'])->name('admin.sample.get_sub_from_plant');
+    Route::get('/get_sample_from_plant/{id}', [SampleController::class, 'get_sample_from_plant'])->name('admin.sample.get_sample_from_plant');
+    Route::get('/get_components_by_test_method/{id}', [SampleController::class, 'get_components_by_test_method'])->name('admin.sample.get_components_by_test_method');
+    Route::get('/get_one_component_by_test_method/{id}', [SampleController::class, 'get_one_component_by_test_method'])->name('admin.sample.get_one_component_by_test_method');
+
+});
+
+// // Plant Management
+// Route::group(['prefix' => 'plant'], function () {
+
+//     Route::get('/', [GeneralController::class, 'plant_index'])->name('admin.plant');
+//     Route::get('/create', [GeneralController::class , 'plant_create'])->name('admin.plant.create');
+//     Route::post('/create', [GeneralController::class , 'plant_store'])->name('admin.plant.store');
+//     Route::get('/edit/{id}' , [GeneralController::class , 'plant_edit'])->name('admin.plant.edit');
+//     Route::patch('/update/{id}' , [GeneralController::class , 'plant_update'])->name('admin.plant.update');
+//     Route::get('/delete/{id}', [GeneralController::class ,'plant_destroy'])->name('admin.plant.delete'); 
+
+
+// });
+
 // Unit Managment
 Route::group(['prefix' => 'unit'], function () {
 
@@ -93,6 +124,8 @@ Route::group(['prefix' => 'plant'], function () {
     Route::get('/edit/{id}' , [PlantController::class , 'plant_edit'])->name('admin.plant.edit');
     Route::patch('/update/{id}' , [PlantController::class , 'plant_update'])->name('admin.plant.update');
     Route::get('/delete/{id}', [PlantController::class ,'plant_destroy'])->name('admin.plant.delete'); 
+    Route::get('/delete_sample_from_plant/{id}', [PlantController::class, 'delete_sample_from_plant'])->name('plant.delete_sample_from_plant');
+    Route::get('/delete_sub_plant_from_plant/{id}', [PlantController::class, 'delete_sub_plant_from_plant'])->name('plant.delete_sub_plant_from_plant');
 
 });
 

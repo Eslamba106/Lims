@@ -67,5 +67,24 @@ class SectionSeeder extends Seeder
         Section::updateOrCreate(['id' => 36], ['name' => 'all_result_types', 'section_group_id' => 30, 'caption' => 'show_all_result_types']);
         
     
+    
+        // Sample Management 37 - 42  
+        Section::updateOrCreate(['id' => 37], ['name' => 'sample_management', 'caption' => 'sample_management']);
+        Section::updateOrCreate(['id' => 38], ['name' => 'change_samples_status', 'section_group_id' => 37, 'caption' => 'change_samples_status']);
+        Section::updateOrCreate(['id' => 39], ['name' => 'delete_sample', 'section_group_id' => 37, 'caption' => 'delete_sample']);
+        Section::updateOrCreate(['id' => 40], ['name' => 'edit_sample', 'section_group_id' => 37, 'caption' => 'edit_sample']);
+        Section::updateOrCreate(['id' => 41], ['name' => 'create_sample', 'section_group_id' => 37, 'caption' => 'create_sample']);
+        Section::updateOrCreate(['id' => 42], ['name' => 'all_samples', 'section_group_id' => 37, 'caption' => 'show_all_samples']);
+        
+    
+        // Plant Management 43 -  45
+        Section::updateOrCreate(['id' => 43], ['name' => 'plant_management', 'caption' => 'plant_management']);
+        Section::updateOrCreate(['id' => 44], ['name' => 'change_plants_status', 'section_group_id' => 43, 'caption' => 'change_plants_status']);
+        Section::updateOrCreate(['id' => 45], ['name' => 'delete_plant', 'section_group_id' => 43, 'caption' => 'delete_plant']);
+        Section::updateOrCreate(['id' => 46], ['name' => 'edit_plant', 'section_group_id' => 43, 'caption' => 'edit_plant']);
+        Section::updateOrCreate(['id' => 47], ['name' => 'create_plant', 'section_group_id' => 43, 'caption' => 'create_plant']);
+        Section::updateOrCreate(['id' => 48], ['name' => 'all_plants', 'section_group_id' => 43, 'caption' => 'show_all_plants']);
+        
+    
     }
 }

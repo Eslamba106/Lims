@@ -130,4 +130,20 @@ return [
     'edit_result_type'                                             => "Edit Result Type",
     'create_result_type'                                           => "Create Result Type",
 
+    'sample_management'                                       => 'Sample',
+    'all_samples'                                             => 'Samples List', 
+    'show_all_samples'                                        => "Show All Samples",
+    'change_samples_status'                                   => "Change Sample Status",
+    'delete_sample'                                           => "Delete Sample",
+    'edit_sample'                                             => "Edit Sample",
+    'create_sample'                                           => "Create Sample",
+
+    'plant_management'                                       => 'Plant',
+    'all_plants'                                             => 'Plants List', 
+    'show_all_plants'                                        => "Show All Plants",
+    'change_plants_status'                                   => "Change Plant Status",
+    'delete_plant'                                           => "Delete Plant",
+    'edit_plant'                                             => "Edit Plant",
+    'create_plant'                                           => "Create Plant",
+
 ];  

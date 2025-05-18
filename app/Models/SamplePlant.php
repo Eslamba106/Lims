@@ -9,9 +9,9 @@ class SamplePlant extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-
+    protected $table = 'plant_samples';
     public function mainPlant()
     {
-        return $this->belongsTo(SamplePlant::class, 'main_plant');
+        return $this->belongsTo(SamplePlant::class, 'plant_id');
     }
 }
