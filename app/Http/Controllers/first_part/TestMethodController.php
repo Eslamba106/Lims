@@ -24,10 +24,10 @@ class TestMethodController extends Controller
         if ($request->bulk_action_btn === 'update_status' && $request->status && is_array($ids) && count($ids)) {
             $data = ['status' => $request->status];
             $this->authorize('change_test_methods_status');
-          
+
             TestMethod::whereIn('id', $ids)->update($data);
             return back()->with('success', __('general.updated_successfully'));
-        }  
+        }
         if ($request->bulk_action_btn === 'delete' &&  is_array($ids) && count($ids)) {
 
 
@@ -38,9 +38,9 @@ class TestMethodController extends Controller
         $test_methods = TestMethod::select('id' , 'name' , 'status' , 'description')->with('test_method_items')->orderBy("created_at","desc")->paginate(10);
         return view("first_part.test_method.test_method_list", compact("test_methods"  ));
     }
-    
+
     public function create(){
-        $this->authorize('create_test_method'); 
+        $this->authorize('create_test_method');
         $units = Unit::select('id', 'name')->get();
         $result_types = ResultType::select('id', 'name')->get();
         $data = [
@@ -51,10 +51,10 @@ class TestMethodController extends Controller
     }
 
     public function store(Request $request){
-         
-        $this->authorize('create_test_method'); 
+
+        $this->authorize('create_test_method');
         $request->validate([
-            'name' => 'required|string|max:255', 
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
             'item_name' => 'required|array',
             'item_name.*' => 'required|string|max:255',
@@ -63,13 +63,13 @@ class TestMethodController extends Controller
             'result_type' => 'required|array',
             'result_type.*' => 'required|string|max:255',
         ]);
-        
+
         DB::beginTransaction();
         try {
             $test_method = TestMethod::create([
                 'name' => $request->name,
                 'description' => $request->description,
-               
+
             ]);
             foreach($request->item_name as $index => $test_method_item){
                 $test_method->test_method_items()->create([
@@ -82,13 +82,90 @@ class TestMethodController extends Controller
                     'reportable' => isset($request->reportable[$index]) ? $request->reportable[$index] : null,
                 ]);
             }
-            
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', __('general.something_went_wrong'));
         }
-        
+
         return redirect()->route('admin.test_method')->with('success', __('general.created_successfully'));
     }
+ public function edit($id)
+{
+    $this->authorize('edit_test_method');
+
+
+    $testMethod = TestMethod::with('test_method_items')->findOrFail($id);
+
+    $units = Unit::select('id', 'name')->get();
+    $result_types = ResultType::select('id', 'name')->get();
+
+    return view("first_part.test_method.edit", [
+        'testMethod' => $testMethod,
+        'units' => $units,
+        'result_types' => $result_types,
+    ]);
+}
+
+public function update(Request $request, $id)
+{
+    $this->authorize('edit_test_method');
+
+
+    $testMethod = TestMethod::findOrFail($id);
+
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string|max:1000',
+        'item_name' => 'required|array',
+        'item_name.*' => 'required|string|max:255',
+        'unit' => 'required|array',
+        'unit.*' => 'required|string|max:255',
+        'result_type' => 'required|array',
+        'result_type.*' => 'required|string|max:255',
+        'precision' => 'nullable|array',
+        'precision.*' => 'nullable|string|max:255',
+        'lower_range' => 'nullable|array',
+        'lower_range.*' => 'nullable|string|max:255',
+        'upper_range' => 'nullable|array',
+        'upper_range.*' => 'nullable|string|max:255',
+        'reportable' => 'nullable|array',
+    ]);
+
+    DB::beginTransaction();
+    try {
+
+        $testMethod->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+
+        $testMethod->test_method_items()->delete();
+
+
+        foreach($request->item_name as $index => $name) {
+            $testMethod->test_method_items()->create([
+                'name' => $name,
+                'unit' => $request->unit[$index] ?? null,
+                'result_type' => $request->result_type[$index] ?? null,
+                'precision' => $request->precision[$index] ?? null,
+                'lower_range' => $request->lower_range[$index] ?? null,
+                'upper_range' => $request->upper_range[$index] ?? null,
+                'reportable' => isset($request->reportable[$index]) ? 1 : 0,
+            ]);
+        }
+
+        DB::commit();
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->back()
+            ->with('error', __('general.something_went_wrong'))
+            ->withInput();
+    }
+
+    return redirect()->route('admin.test_method')
+        ->with('success', __('general.updated_successfully'));
+}
 }
