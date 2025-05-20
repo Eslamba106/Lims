@@ -49,7 +49,7 @@
         <!-- ============================================================== -->
         <form action="{{ route('admin.test_method.update', $testMethod->id) }}" method="post" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
+            @method('PATCH')
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -98,17 +98,18 @@
                                 @if(!empty($testMethod->test_method_items))
                                 @foreach($testMethod->test_method_items as $component)
                                 <div class="card p-3 mb-3 border border-primary position-relative">
-                                    <button type="button" class="btn btn-danger btn-sm position-absolute" style="top: 10px; right: 10px;" onclick="this.closest('.card').remove();">
+                                    <a href="{{ route('admin.test_method.delete_component' , $component->id) }}" class="btn btn-danger btn-sm position-absolute" style="top: 10px; right: 10px;" onclick="this.closest('.card').remove();">
                                         <i class="mdi mdi-delete"></i>
-                                    </button>
+                                    </a>
 
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6 col-lg-3">
                                                 <div class="form-group">
+                                                    <input type="hidden" value="{{ $component->id }}" name="item_id[]"  >
                                                     <label for="">{{ __('roles.name') }} <span class="text-danger">*</span></label>
-                                                    <input type="text" name="item_name[]" class="form-control" value="{{ old('item_name.'.$loop->index, $component->name) }}" />
-                                                    @error('item_name.'.$loop->index)
+                                                    <input type="text" name="item_name-{{ $component->id }}" class="form-control" value="{{   $component->name  }}" />
+                                                    @error('item_name-{{ $component->id }}')
                                                         <span class="error text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -116,13 +117,13 @@
                                             <div class="col-md-6 col-lg-1">
                                                 <div class="form-group">
                                                     <label for="">{{ __('test_method.unit') }} <span class="text-danger">*</span></label>
-                                                    <select name="unit[]" class="form-control">
+                                                    <select name="unit-{{ $component->id }}" class="form-control">
                                                         <option value="">{{ __('test_method.select_unit') }}</option>
                                                         @foreach ($units as $unit_item)
-                                                            <option value="{{ $unit_item->id }}" {{ old('unit.'.$loop->parent->index, $component->unit)  ? 'selected' : '' }}>{{ $unit_item->name }}</option>
+                                                            <option value="{{ $unit_item->id }}" {{ ($unit_item->id == $component->unit)  ? 'selected' : '' }}>{{ $unit_item->name }}</option>
                                                         @endforeach
                                                     </select>
-                                                    @error('unit.'.$loop->index)
+                                                    @error('unit-{{ $component->id }}')
                                                         <span class="error text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -130,13 +131,13 @@
                                             <div class="col-md-6 col-lg-2">
                                                 <div class="form-group">
                                                     <label for="">{{ __('test_method.result_type') }} <span class="text-danger">*</span></label>
-                                                    <select name="result_type[]" class="form-control">
+                                                    <select name="result_type-{{ $component->id }}" class="form-control">
                                                         <option value="">{{ __('test_method.select_result_type') }}</option>
                                                         @foreach ($result_types as $result_type_item)
-                                                            <option value="{{ $result_type_item->id }}" {{ old('result_type.'.$loop->parent->index, $component->result_type_id) == $result_type_item->id ? 'selected' : '' }}>{{ $result_type_item->name }}</option>
+                                                            <option value="{{ $result_type_item->id }}" {{  $component->result_type  == $result_type_item->id ? 'selected' : '' }}>{{ $result_type_item->name }}</option>
                                                         @endforeach
                                                     </select>
-                                                    @error('result_type.'.$loop->index)
+                                                    @error('result_type-{{ $component->id }}')
                                                         <span class="error text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -144,8 +145,8 @@
                                             <div class="col-md-6 col-lg-1">
                                                 <div class="form-group">
                                                     <label for="">{{ __('test_method.precision') }} <span class="text-danger">*</span></label>
-                                                    <input type="text" name="precision[]" class="form-control" value="{{ old('precision.'.$loop->index, $component->precision) }}" />
-                                                    @error('precision.'.$loop->index)
+                                                    <input type="number" name="precision-{{ $component->id }}" class="form-control" value="{{ $component->precision }}" />
+                                                    @error('precision-{{ $component->id }}')
                                                         <span class="error text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -153,8 +154,8 @@
                                             <div class="col-md-6 col-lg-2">
                                                 <div class="form-group">
                                                     <label for="">{{ __('test_method.lower_range') }} <span class="text-danger">*</span></label>
-                                                    <input type="text" name="lower_range[]" class="form-control" value="{{ old('lower_range.'.$loop->index, $component->lower_range) }}" />
-                                                    @error('lower_range.'.$loop->index)
+                                                    <input type="number" name="lower_range-{{ $component->id }}" class="form-control" value="{{  $component->lower_range }}" />
+                                                    @error('lower_range-{{ $component->id }}')
                                                         <span class="error text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -162,8 +163,8 @@
                                             <div class="col-md-6 col-lg-2">
                                                 <div class="form-group">
                                                     <label for="">{{ __('test_method.upper_range') }} <span class="text-danger">*</span></label>
-                                                    <input type="text" name="upper_range[]" class="form-control" value="{{ old('upper_range.'.$loop->index, $component->upper_range) }}" />
-                                                    @error('upper_range.'.$loop->index)
+                                                    <input type="number" name="upper_range-{{ $component->id }}" class="form-control" value="{{  $component->upper_range  }}" />
+                                                    @error('upper_range-{{ $component->id }}' )
                                                         <span class="error text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -171,12 +172,12 @@
                                             <div class="col-md-6 col-lg-1">
                                                 <div class="form-group">
                                                     <div class="form-check mt-4">
-                                                        <input type="checkbox" name="reportable[]" value="1" class="form-check-input" id="reportableCheckbox{{ $loop->index }}" {{ old('reportable.'.$loop->index, $component->reportable) ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="reportableCheckbox{{ $loop->index }}">
+                                                        <input type="checkbox" name="reportable-{{ $component->id }}" value="1" class="form-check-input" id="reportableCheckbox{{ $component->id }}" {{   (isset($component->reportable)  && $component->reportable == 1 ) ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="reportableCheckbox{{ $component->id }}">
                                                             {{ __('test_method.reportable') }}
                                                         </label>
                                                     </div>
-                                                    @error('reportable.'.$loop->index)
+                                                    @error('reportable-{{ $component->id }}' )
                                                         <span class="error text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>

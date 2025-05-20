@@ -61,6 +61,7 @@ Route::group(['prefix' => 'test_method'], function () {
     Route::get('/edit/{id}' , [TestMethodController::class , 'edit'])->name('admin.test_method.edit');
     Route::patch('/update/{id}' , [TestMethodController::class , 'update'])->name('admin.test_method.update');
     Route::get('/delete/{id}', [TestMethodController::class ,'destroy'])->name('admin.test_method.delete'); 
+    Route::get('/delete_component/{id}', [TestMethodController::class, 'delete_component'])->name('admin.test_method.delete_component');
 
 });
 
