@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('sample_test_methods', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sample_id')->constrained()->onDelete('cascade');
-            $table->foreignId('test_method_id')->constrained()->onDelete('cascade');
+            $table->foreignId('sample_id')->constrained('samples')->onDelete('cascade');
+            $table->foreignId('test_method_id')->constrained('test_method_items')->onDelete('cascade');
             $table->string('warning_limit')->nullable();
             $table->string('action_limit')->nullable();
             $table->string('action_limit_type')->nullable();
-            $table->string('warning_limit_value')->nullable();
+            $table->string('warning_limit_type')->nullable();
             $table->timestamps();
         });
     }
